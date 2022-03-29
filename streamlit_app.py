@@ -35,12 +35,9 @@ with st.sidebar:
     st.sidebar.title("About")
     st.sidebar.info(
         """
-        This web [app](https://share.streamlit.io/giswqs/streamlit-template) is maintained by [Qiusheng Wu](https://wetlands.io). You can follow me on social media:
-            [GitHub](https://github.com/giswqs) | [Twitter](https://twitter.com/giswqs) | [YouTube](https://www.youtube.com/c/QiushengWu) | [LinkedIn](https://www.linkedin.com/in/qiushengwu).
+        This web [app](https://share.streamlit.io/bauaai/streamlit-app/main) is maintained by [Osman](https://github.com/osbm), [Efe](https://github.com/EFCK) and [Bilal](https://github.com/qimenez). 
         
-        Source code: <https://github.com/giswqs/streamlit-template>
-
-        More menu icons: <https://icons.getbootstrap.com>
+        [ADD APPLICATION SUMMARY HERE]
     """
     )
 
