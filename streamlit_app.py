@@ -19,7 +19,7 @@ icons = [app["icon"] for app in apps.values()]
 params = st.experimental_get_query_params()
 
 if "page" in params:
-    default_index = int(titles.index(params["page"][0].lower()))
+    default_index = titles.index(params["page"][0].lower())
 else:
     default_index = 0
 
