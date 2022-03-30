@@ -15,7 +15,7 @@ def app():
         BLA, *BLA*, **BLA**
         $$\text{Is latex working} = \frac{\text{test}}{\text{denemesi}}$$
         ## Merhabalar streamlit markdown latex destekliyormuş.
-        Ve buraya eklenilecek gifleri ve resimleri tasarımın son aşamasına \\
+        Ve buraya eklenilecek gifleri ve resimleri tasarımın son aşamasına
         bırakalım diyorum ama isteyen vakti olduğu zaman yapabilir.
         """
     )
