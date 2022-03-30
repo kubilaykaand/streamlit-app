@@ -15,5 +15,3 @@ def app():
         Ve buraya eklenilecek gifleri ve resimleri tasarımın son aşamasına bırakalım diyorum ama isteyen vakti olduğu zaman yapabilir.
         """
     )
-
-    
