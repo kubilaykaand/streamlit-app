@@ -6,7 +6,7 @@ def app():
     """
     Main app that streamlit will render.
     """
-    st.title("Home")
+    st.title("TEMA işbirliği ile yapıldı")
 
     st.markdown(
         r"""

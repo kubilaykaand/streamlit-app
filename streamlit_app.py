@@ -7,8 +7,8 @@ st.set_page_config(page_title="Yangın Analizi", page_icon="🔥", layout="wide"
 
 
 apps = [
-    {"func": home.app, "title": "Home", "icon": "house"},
-    {"func": fire_analysis.app, "title": "Fire Analysis", "icon": "geo-alt"},
+    {"func": home.app, "title": "Ana Sayfa", "icon": "house"},
+    {"func": fire_analysis.app, "title": "Yangın Analizi", "icon": "geo-alt"},
 ]
 
 titles = [app["title"] for app in apps]
@@ -23,19 +23,19 @@ else:
 
 with st.sidebar:
     selected = option_menu(
-        "Main Menu",
+        "BAU - TEMA",
         options=titles,
         icons=icons,
         menu_icon="list",
         default_index=DEFAULT_INDEX,
     )
 
-    st.sidebar.title("About")
+    st.sidebar.title("Hakkında")
     st.sidebar.info(
         """
-        This web [app](https://share.streamlit.io/bauaai/streamlit-app/main) is maintained by
-        [Osman](https://github.com/osbm), [Efe](https://github.com/EFCK) and
-        [Bilal](https://github.com/qimenez).
+        Bu [uygulama](https://share.streamlit.io/bauaai/streamlit-app/main) 
+        [Osman](https://github.com/osbm), [Efe](https://github.com/EFCK) ve
+        [Bilal](https://github.com/qimenez) tarafından yazılmıştır.
 
         [ADD APPLICATION SUMMARY HERE]
     """
