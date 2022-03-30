@@ -32,7 +32,8 @@ with st.sidebar:
     st.sidebar.title("About")
     st.sidebar.info(
         """
-        This web [app](https://share.streamlit.io/bauaai/streamlit-app/main) is maintained by [Osman](https://github.com/osbm), [Efe](https://github.com/EFCK) and [Bilal](https://github.com/qimenez). 
+        This web [app](https://share.streamlit.io/bauaai/streamlit-app/main) is maintained by \\
+        [Osman](https://github.com/osbm), [Efe](https://github.com/EFCK) and [Bilal](https://github.com/qimenez). 
         
         [ADD APPLICATION SUMMARY HERE]
     """
