@@ -21,15 +21,22 @@ def app():
     """
     st.title("Yangın analizi")
 
-    main_map = geemap.Map()
+    main_map = geemap.Map(
+            basemap="HYBRID",
+            plugin_Draw=True,
+            Draw_export=True,
+            locate_control=True,
+            plugin_LatLngPopup=False,
+        )
     name, value = random.choice(list(fire_cases.items()))
 
     region = value["region"]
     region = gpd.GeoDataFrame(index=[0], crs=CRS, geometry=[region])
+    main_map.add_gdf(region)
     region = geemap.geopandas_to_ee(region, geodesic=False)
 
     region = ee.Geometry(region)
     st.markdown(name)
 
-    main_map.add_layer(region)
+    #main_map.add_gdf(gdf)(in_geojson)
     main_map.to_streamlit(MAP_WIDTH, MAP_HEIGHT)
