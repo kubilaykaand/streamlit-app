@@ -22,12 +22,12 @@ def app():
     st.title("Yangın analizi")
 
     main_map = geemap.Map(
-            basemap="HYBRID",
-            plugin_Draw=True,
-            Draw_export=True,
-            locate_control=True,
-            plugin_LatLngPopup=False,
-        )
+        basemap="HYBRID",
+        plugin_Draw=True,
+        Draw_export=True,
+        locate_control=True,
+        plugin_LatLngPopup=False,
+    )
     name, value = random.choice(list(fire_cases.items()))
 
     region = value["region"]
@@ -38,5 +38,5 @@ def app():
     region = ee.Geometry(region)
     st.markdown(name)
 
-    #main_map.add_gdf(gdf)(in_geojson)
+    # main_map.add_gdf(gdf)(in_geojson)
     main_map.to_streamlit(MAP_WIDTH, MAP_HEIGHT)
