@@ -1,4 +1,6 @@
-"""Third party libraries"""
+"""
+Streamlit App
+"""
 import streamlit as st
 from streamlit_option_menu import option_menu
 from apps import fire_analysis, home

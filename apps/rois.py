@@ -1,4 +1,6 @@
-"""Import third-party modules"""
+"""
+Define ROIs for the application.
+"""
 from shapely.geometry import Polygon
 
 
