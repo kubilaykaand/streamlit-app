@@ -3,5 +3,6 @@ streamlit
 streamlit-option-menu
 leafmap
 geopandas
+shapely
 earthengine-api
 click==8

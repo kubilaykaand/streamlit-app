@@ -1,4 +1,6 @@
-"""Third party libraries"""
+"""
+Streamlit App
+"""
 import streamlit as st
 from streamlit_option_menu import option_menu
 from apps import fire_analysis, home
@@ -33,7 +35,7 @@ with st.sidebar:
     st.sidebar.title("Hakkında")
     st.sidebar.info(
         """
-        Bu [uygulama](https://share.streamlit.io/bauaai/streamlit-app/main) 
+        Bu [uygulama](https://share.streamlit.io/bauaai/streamlit-app/main)
         [Osman](https://github.com/osbm), [Efe](https://github.com/EFCK) ve
         [Bilal](https://github.com/qimenez) tarafından yazılmıştır.
 
