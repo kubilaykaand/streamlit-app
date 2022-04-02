@@ -7,19 +7,13 @@ import geemap.colormaps as cm
 import geemap.foliumap as geemap
 import ee
 import geopandas as gpd  # to change rois to geojson types
+import folium
 
 from .rois import fire_cases  # Why i am getting pylint error? code works fine.
 
 IMAGE_COLLECTION = "COPERNICUS/S2"
 MAP_WIDTH = 950
 MAP_HEIGHT = 600
-CRS = "epsg:4326"  # Coordinate Reference System
-
-from .rois import fire_cases
-
-# upload etmemizi salayacak fonksiyon lazım buraya
-
-IMAGE_COLLECTION = "COPERNICUS/S2"
 CRS = "epsg:4326"  # Coordinate Reference System
 
 
@@ -60,7 +54,8 @@ def app():
 
     with row1_col2:
 
-        if keyword := st.text_input("Bölge arayın:", ""):
+        keyword = st.text_input("Bölge arayın:", "")
+        if keyword:
             locations = geemap.geocode(keyword)
             if locations is not None and len(locations) > 0:
                 str_locations = [str(g)[1:-1] for g in locations]
