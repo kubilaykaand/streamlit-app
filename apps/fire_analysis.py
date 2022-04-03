@@ -1,17 +1,20 @@
 """
 The page for fire analysis page.
 """
-import random
+from io import StringIO
+import datetime
+from datetime import date
+
 import streamlit as st
 import geemap.colormaps as cm
 import geemap.foliumap as geemap
 import ee
 import geopandas as gpd  # to change rois to geojson types
 import folium
-import datetime
-from datetime import date
+
 
 from .rois import fire_cases  # Why i am getting pylint error? code works fine.
+
 
 IMAGE_COLLECTION = "COPERNICUS/S2"
 MAP_WIDTH = 950
@@ -80,15 +83,38 @@ def app():
             "ROI olarak kullanmak için GeoJSON dosyası ekleyin 😇👇",
             type=["geojson", "kml", "zip"],
         )
-
-        sample_roi = st.selectbox(
+        # print(data)
+        selected_roi = st.selectbox(
             "Çalışılacak roi'yi seçin veya GeoJSON dosyası yükleyin.",
-            ["Yüklenişmiş GeoJSON"]
+            ["Yüklenilen GeoJSON"]
             + list(fire_cases.keys()),  # roi importu liste şeklinde buraya gelecek
             index=0,
         )
-        pre_fire_date = st.date_input(
-            "Yangın başlangıç tarihi", date.today() - datetime.timedelta(days=1)
-        )
 
-        pre_fire_date = st.date_input("Yangın bitiş tarihi", date.today())
+        geometry = None
+        if selected_roi == "Yüklenilen GeoJSON":
+            pre_fire_date = st.date_input(
+                "Yangın başlangıç tarihi", date.today() - datetime.timedelta(days=1)
+            )
+
+            post_fire_date = st.date_input("Yangın bitiş tarihi", date.today())
+            if data:
+                geojson = StringIO(data.getvalue().decode("utf-8"))
+                geometry = ee.Geometry(geojson)
+
+        else:
+            geometry = fire_cases[selected_roi]["region"]
+            pre_fire_date = fire_cases[selected_roi]["date_range"][0]
+            post_fire_date = fire_cases[selected_roi]["date_range"][1]
+
+    # now we have geometry and dates
+    # also we need the geometry as ee.Geometry
+    if selected_roi == "Yüklenilen GeoJSON":  # rois coming from the user
+        # raise NotImplemented
+        pass
+    else:  # rois coming from fire_cases
+        # raise NotImplemented
+        pass
+
+    print(geometry, pre_fire_date, post_fire_date)
+    image_collection = ee.ImageCollection(IMAGE_COLLECTION)

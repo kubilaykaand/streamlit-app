@@ -2,11 +2,11 @@
 Define ROIs for the application.
 """
 from shapely.geometry import Polygon
-
+import ee
 
 fire_cases = {
     "Creek Fire, CA 2020": {
-        "region": Polygon(
+        "region": ee.Geometry.Polygon(
             [
                 [-121.003418, 36.848857],
                 [-121.003418, 39.049052],
@@ -18,7 +18,7 @@ fire_cases = {
         "date_range": ["2020-09-05", "2020-09-06"],
     },
     "Marmaris 2021": {
-        "region": Polygon(
+        "region": ee.Geometry.Polygon(
             [
                 [28.126911034358155, 36.80216004174086],
                 [28.133434259593162, 36.79473723496511],
