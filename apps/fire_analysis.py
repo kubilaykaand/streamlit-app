@@ -6,15 +6,12 @@ import datetime
 from datetime import date
 
 import streamlit as st
-import geemap.colormaps as cm
 import geemap.foliumap as geemap
 import ee
-import geopandas as gpd  # to change rois to geojson types
 import folium
 
 
-from .rois import fire_cases  # Why i am getting pylint error? code works fine.
-
+from . import rois  # Why i am getting pylint error? code works fine.
 
 IMAGE_COLLECTION = "COPERNICUS/S2"
 MAP_WIDTH = 950
@@ -23,6 +20,7 @@ CRS = "epsg:4326"  # Coordinate Reference System
 
 
 def app():
+    # sourcery skip: remove-redundant-if, remove-redundant-pass, use-named-expression
 
     """
     The main app that streamlit will render for fire analysis page.
@@ -32,14 +30,14 @@ def app():
 
     st.markdown(
         """
-        [Sentinel-2](https://developers.google.com/earth-engine/datasets/catalog/sentinel)
-        verilerini kullanarak orman yangınlarının incelenmesini sağlayan web aplikasyonu.
-        Bu uygulama [streamlit](https://streamlit.io), [geemap](https://geemap.org) ve
-        [Google Earth Engine](https://earthengine.google.com) kullanılarak oluşturuldu.
-        Daha fazla bilgi için, streamlit
-        [blog post](https://blog.streamlit.io/creating-satellite-timelapse-with-streamlit-and-earth-engine)
-        sayfasını ziyaret edebilirsiniz.
-    """
+[Sentinel-2](https://developers.google.com/earth-engine/datasets/catalog/sentinel)
+verilerini kullanarak orman yangınlarının incelenmesini sağlayan web aplikasyonu.
+Bu uygulama [streamlit](https://streamlit.io), [geemap](https://geemap.org) ve
+[Google Earth Engine](https://earthengine.google.com) kullanılarak oluşturuldu.
+Daha fazla bilgi için, streamlit
+[blog post](https://blog.streamlit.io/creating-satellite-timelapse-with-streamlit-and-earth-engine)
+sayfasını ziyaret edebilirsiniz.
+        """
     )
 
     row1_col1, row1_col2 = st.columns([2, 1])
@@ -83,16 +81,15 @@ def app():
             "ROI olarak kullanmak için GeoJSON dosyası ekleyin 😇👇",
             type=["geojson", "kml", "zip"],
         )
-        # print(data)
+
         selected_roi = st.selectbox(
             "Çalışılacak roi'yi seçin veya GeoJSON dosyası yükleyin.",
-            ["Yüklenilen GeoJSON"]
-            + list(fire_cases.keys()),  # roi importu liste şeklinde buraya gelecek
+            ["Yüklenilen GeoJSON"] + list(rois.fire_cases.keys()),
             index=0,
         )
 
         geometry = None
-        if selected_roi == "Yüklenilen GeoJSON":
+        if selected_roi == "Yüklenilen GeoJSON":  # rois coming from the user
             pre_fire_date = st.date_input(
                 "Yangın başlangıç tarihi", date.today() - datetime.timedelta(days=1)
             )
@@ -102,19 +99,14 @@ def app():
                 geojson = StringIO(data.getvalue().decode("utf-8"))
                 geometry = ee.Geometry(geojson)
 
-        else:
-            geometry = fire_cases[selected_roi]["region"]
-            pre_fire_date = fire_cases[selected_roi]["date_range"][0]
-            post_fire_date = fire_cases[selected_roi]["date_range"][1]
+        else:  # rois coming from fire_cases
+            geometry = rois.fire_cases[selected_roi]["region"]
+            pre_fire_date = rois.fire_cases[selected_roi]["date_range"][0]
+            post_fire_date = rois.fire_cases[selected_roi]["date_range"][1]
 
     # now we have geometry and dates
     # also we need the geometry as ee.Geometry
-    if selected_roi == "Yüklenilen GeoJSON":  # rois coming from the user
-        # raise NotImplemented
-        pass
-    else:  # rois coming from fire_cases
-        # raise NotImplemented
-        pass
 
     print(geometry, pre_fire_date, post_fire_date)
     image_collection = ee.ImageCollection(IMAGE_COLLECTION)
+    print(image_collection)

@@ -1,8 +1,11 @@
 """
 Define ROIs for the application.
 """
-from shapely.geometry import Polygon
+
+import geemap.foliumap as geemap
 import ee
+
+geemap.ee_initialize()
 
 fire_cases = {
     "Creek Fire, CA 2020": {
