@@ -46,13 +46,12 @@ sayfasını ziyaret edebilirsiniz.
         st.session_state["zoom_level"] = 4
 
     main_map = geemap.Map(
-        basemap="HYBRID",
+        basemap="ROADMAP",
         plugin_Draw=True,
         Draw_export=True,
         locate_control=True,
         plugin_LatLngPopup=False,
     )
-    main_map.add_basemap("ROADMAP")
 
     with row1_col1:
         st.info(
