@@ -43,6 +43,7 @@ def map_search(folium_map):  # sourcery skip: use-named-expression
             folium_map.set_center(lng, lat, 12)
             st.session_state["zoom_level"] = 12
 
+
 @st.cache
 def uploaded_file_to_gdf(data):
     """
@@ -60,6 +61,7 @@ def uploaded_file_to_gdf(data):
 
     gpd.io.file.fiona.drvsupport.supported_drivers["KML"] = "rw"
     return gpd.read_file(file_path, driver="KML")
+
 
 def app():
     # sourcery skip: remove-redundant-if, remove-redundant-pass, use-named-expression
