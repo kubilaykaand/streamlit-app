@@ -3,7 +3,6 @@ The page for fire analysis page.
 """
 
 # Standard libraries
-from io import StringIO
 import datetime
 from datetime import date
 import tempfile
@@ -25,8 +24,6 @@ MAP_WIDTH = 950
 MAP_HEIGHT = 600
 CRS = "epsg:4326"  # Coordinate Reference System
 
-def string_to_date(date_string):
-    return 
 
 def map_search(folium_map):  # sourcery skip: use-named-expression
     """
@@ -115,8 +112,12 @@ sayfasını ziyaret edebilirsiniz.
 
         if selected_roi != "Yüklenilen GeoJSON":  # rois coming from fire_cases
             st.session_state["roi"] = rois.fire_cases[selected_roi]["region"]
-            pre_fire = date.fromisoformat(rois.fire_cases[selected_roi]["date_range"][0])
-            post_fire = date.fromisoformat(rois.fire_cases[selected_roi]["date_range"][1])
+            pre_fire = date.fromisoformat(
+                rois.fire_cases[selected_roi]["date_range"][0]
+            )
+            post_fire = date.fromisoformat(
+                rois.fire_cases[selected_roi]["date_range"][1]
+            )
 
         elif data:  # rois coming from users
             gdf = uploaded_file_to_gdf(data)
@@ -133,7 +134,6 @@ sayfasını ziyaret edebilirsiniz.
         )
         map_search(main_map)
 
-        
         if st.session_state.get("roi"):
             main_map.add_layer(st.session_state["roi"])
             main_map.center_object(st.session_state["roi"])
