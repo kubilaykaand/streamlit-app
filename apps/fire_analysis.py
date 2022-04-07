@@ -116,7 +116,7 @@ def app():
         st.info(
             "Adımlar: Harita üzerinde poligon çizin -> GeoJSON olarak export edin"
             "-> Uygulumaya upload edin"
-            "-> Submit tuşuna tıklayın."
+            "-> Tarih aralığı seçin."
         )
         map_search(main_map)
 
