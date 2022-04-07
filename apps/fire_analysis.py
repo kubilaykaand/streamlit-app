@@ -128,4 +128,4 @@ def app():
         # False color before & after fire
         # dNBR
 
-        main_map.to_streamlit(height=400)
+        main_map.to_streamlit(height=600)
