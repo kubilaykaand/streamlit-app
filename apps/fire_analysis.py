@@ -69,20 +69,6 @@ def app():
     The main app that streamlit will render for fire analysis page.
     """
 
-    st.title("Yangın analizi")
-
-    st.markdown(
-        """
-[Sentinel-2](https://developers.google.com/earth-engine/datasets/catalog/sentinel)
-verilerini kullanarak orman yangınlarının incelenmesini sağlayan web aplikasyonu.
-Bu uygulama [streamlit](https://streamlit.io), [geemap](https://geemap.org) ve
-[Google Earth Engine](https://earthengine.google.com) kullanılarak oluşturuldu.
-Daha fazla bilgi için, streamlit
-[blog post](https://blog.streamlit.io/creating-satellite-timelapse-with-streamlit-and-earth-engine)
-sayfasını ziyaret edebilirsiniz.
-        """
-    )
-
     col1, col2 = st.columns([2, 1])
 
     if st.session_state.get("zoom_level") is None:
@@ -135,14 +121,12 @@ sayfasını ziyaret edebilirsiniz.
         map_search(main_map)
 
         if st.session_state.get("roi"):
-            main_map.add_layer(st.session_state["roi"])
             main_map.center_object(st.session_state["roi"])
-
+            main_map.add_layer(st.session_state["roi"], name = "ROI", opacity=0.5)
+            
+        
+        # Normal Satellite before & after fire
+        # False color before & after fire
+        # dNBR
+        
         main_map.to_streamlit(height=400)
-
-    # now we have geometry and dates
-    # also we need the geometry as ee.Geometry
-    print(pre_fire_date, post_fire_date)
-    print(st.session_state.get("roi"))
-    image_collection = ee.ImageCollection(IMAGE_COLLECTION)
-    print(image_collection)

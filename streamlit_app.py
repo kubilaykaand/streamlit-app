@@ -35,13 +35,17 @@ with st.sidebar:
     st.sidebar.title("Hakkında")
     st.sidebar.info(
         """
-        Bu [uygulama](https://share.streamlit.io/bauaai/streamlit-app/main)
-        [Osman](https://github.com/osbm), [Efe](https://github.com/EFCK) ve
+        Bu uygulama [Osman](https://github.com/osbm), [Efe](https://github.com/EFCK) ve
         [Bilal](https://github.com/qimenez) tarafından yazılmıştır.
 
-        [ADD APPLICATION SUMMARY HERE]
-    """
+    [Sentinel-2](https://developers.google.com/earth-engine/datasets/catalog/sentinel)
+    verilerini kullanarak orman yangınlarının incelenmesini sağlayan web aplikasyonu.
+    Bu uygulama [streamlit](https://streamlit.io), [geemap](https://geemap.org) ve
+    [Google Earth Engine](https://earthengine.google.com) kullanılarak oluşturuldu.
+        """
     )
+    
+    
 
 for app in apps:
     if app["title"] == selected:
