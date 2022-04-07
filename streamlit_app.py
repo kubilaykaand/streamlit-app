@@ -44,8 +44,7 @@ with st.sidebar:
     [Google Earth Engine](https://earthengine.google.com) kullanılarak oluşturuldu.
         """
     )
-    
-    
+
 
 for app in apps:
     if app["title"] == selected:

@@ -122,11 +122,10 @@ def app():
 
         if st.session_state.get("roi"):
             main_map.center_object(st.session_state["roi"])
-            main_map.add_layer(st.session_state["roi"], name = "ROI", opacity=0.5)
-            
-        
+            main_map.add_layer(st.session_state["roi"], name="ROI", opacity=0.5)
+
         # Normal Satellite before & after fire
         # False color before & after fire
         # dNBR
-        
+
         main_map.to_streamlit(height=400)
