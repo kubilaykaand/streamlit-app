@@ -2,6 +2,8 @@
 Home page
 """
 import streamlit as st
+from PIL import Image
+
 
 
 def app():
@@ -27,12 +29,15 @@ def app():
     """
     )
 
+
+    image1 = Image.open(r"C:\Users\krbyk\git-desktop\streamlit-app\assets\yangın_öncesi_rgb.jpg")
+    image2 = Image.open(r"C:\Users\krbyk\git-desktop\streamlit-app\assets\yangın_sonrası_rgb.jpg")
+
     row1_col1, row1_col2 = st.columns(2)
     with row1_col1:
-        st.image("https://github.com/bauaai/streamlit-app/blob/29-ana-sayfa-düzenlenilmeli/assets/yangın_öncesi_rgb.png")
-        st.image("https://github.com/bauaai/streamlit-app/blob/29-ana-sayfa-düzenlenilmeli/assets/yangın_sonrası_rgb.png")
-
+        st.image(image1)
+        st.image(image2)
 
     with row1_col2:
         st.image("https://github.com/giswqs/data/raw/main/timelapse/goes.gif")
-        st.image("https://github.com/bauaai/streamlit-app/blob/29-ana-sayfa-düzenlenilmeli/assets/lejant.png")
+        st.image("https://github.com/giswqs/data/raw/main/timelapse/fire.gif")
