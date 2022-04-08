@@ -29,9 +29,10 @@ def app():
 
     row1_col1, row1_col2 = st.columns(2)
     with row1_col1:
-        st.image("https://github.com/giswqs/data/raw/main/timelapse/spain.gif")
-        st.image("https://github.com/giswqs/data/raw/main/timelapse/las_vegas.gif")
+        st.image("https://github.com/bauaai/streamlit-app/blob/29-ana-sayfa-düzenlenilmeli/assets/yangın_öncesi_rgb.png")
+        st.image("https://github.com/bauaai/streamlit-app/blob/29-ana-sayfa-düzenlenilmeli/assets/yangın_sonrası_rgb.png")
+
 
     with row1_col2:
         st.image("https://github.com/giswqs/data/raw/main/timelapse/goes.gif")
-        st.image("https://github.com/giswqs/data/raw/main/timelapse/fire.gif")
+        st.image("https://github.com/bauaai/streamlit-app/blob/29-ana-sayfa-düzenlenilmeli/assets/lejant.png")
