@@ -1,6 +1,7 @@
 """
 Home page
 """
+from turtle import width
 import streamlit as st
 from PIL import Image
 
@@ -30,14 +31,18 @@ def app():
     )
 
 
-    image1 = Image.open(r"C:\Users\krbyk\git-desktop\streamlit-app\assets\yangın_öncesi_rgb.jpg")
-    image2 = Image.open(r"C:\Users\krbyk\git-desktop\streamlit-app\assets\yangın_sonrası_rgb.jpg")
+    image1 = Image.open(r"..\streamlit-app\assets\prefire.png")
+    image2 = Image.open(r"..\streamlit-app\assets\afterfire.png")
+    image3 = Image.open(r"..\streamlit-app\assets\griscalednbr.png")
+    image4 = Image.open(r"..\streamlit-app\assets\classifieddnbr.png")
+
+
 
     row1_col1, row1_col2 = st.columns(2)
     with row1_col1:
-        st.image(image1)
-        st.image(image2)
+        st.image(image1,"Yangın Öncesi RGB",use_column_width="always")
+        st.image(image3,"Gri Scale dNBR",use_column_width="always")
 
     with row1_col2:
-        st.image("https://github.com/giswqs/data/raw/main/timelapse/goes.gif")
-        st.image("https://github.com/giswqs/data/raw/main/timelapse/fire.gif")
+        st.image(image2,"Yangın Sonrası RGB",use_column_width="always")
+        st.image(image4,"Classified dNBR",use_column_width="always")
