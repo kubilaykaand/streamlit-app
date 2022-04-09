@@ -20,7 +20,7 @@ def app():
         """
     )
 
-    st.subheader("Örnek Analizler")
+    st.subheader("Örnek Çalışmalar")
     st.markdown(
         """
         Alt taraftaki çalışmalar Yangın Analizi web sayfası kullanılarak yapıldı. 
