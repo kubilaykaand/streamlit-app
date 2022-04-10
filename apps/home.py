@@ -28,6 +28,9 @@ def app():
         sekmesine tıklayınız.
     """
     )
+    
+    import os
+    st.write(os.getcwd())
 
     image1 = Image.open("../assets/prefire.png")
     image2 = Image.open(r"..\assets\afterfire.png")
