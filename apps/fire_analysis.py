@@ -136,4 +136,39 @@ def app():
             main_map.center_object(st.session_state["roi"])
             main_map.add_layer(st.session_state["roi"], name="ROI", opacity=0.5)
 
+            imagery = ee.ImageCollection(SENTINEL)
+
+            roi_region = imagery.filterBounds(st.session_state["roi"])
+
+            prefire_roi_region = roi_region.filterDate(
+                dates["prefire_start"], dates["prefire_end"]
+            ).median()
+            postfire_roi_region = roi_region.filterDate(
+                dates["postfire_start"], dates["postfire_end"]
+            ).median()
+
+            main_map.add_layer(
+                prefire_roi_region.clip(st.session_state.get("roi")),
+                name="Prefire",
+                vis_params=rgb_vis_params,
+            )
+            main_map.add_layer(
+                postfire_roi_region.clip(st.session_state.get("roi")),
+                name="Postfire",
+                vis_params=rgb_vis_params,
+            )
+
+            # False color layers
+
+            main_map.add_layer(
+                prefire_roi_region.clip(st.session_state.get("roi")),
+                name="Prefire",
+                vis_params=false_color_vis_params,
+            )
+            main_map.add_layer(
+                postfire_roi_region.clip(st.session_state.get("roi")),
+                name="Postfire",
+                vis_params=false_color_vis_params,
+            )
+
         main_map.to_streamlit(height=600)
