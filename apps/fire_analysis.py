@@ -91,6 +91,7 @@ def app():
             "ROI olarak kullanmak için GeoJSON dosyası ekleyin 😇👇",
             type=["geojson", "kml", "zip"],
         )
+
         selected_roi = st.selectbox(
             "Çalışılacak roi'yi seçin veya GeoJSON dosyası yükleyin.",
             ["Yüklenilen GeoJSON"] + list(rois.fire_cases.keys()),
@@ -115,6 +116,12 @@ def app():
 
         pre_fire_date = st.date_input("Yangın başlangıç tarihi", pre_fire)
         post_fire_date = st.date_input("Yangın bitiş tarihi", post_fire)
+        dates = {
+            "prefire_start": str(pre_fire_date - datetime.timedelta(days=5)),
+            "prefire_end": str(pre_fire_date),
+            "postfire_start": str(post_fire_date),
+            "postfire_end": str(post_fire_date + datetime.timedelta(days=5)),
+        }
 
     with col1:
         st.info(
@@ -128,6 +135,5 @@ def app():
         if st.session_state.get("roi"):
             main_map.center_object(st.session_state["roi"])
             main_map.add_layer(st.session_state["roi"], name="ROI", opacity=0.5)
-
 
         main_map.to_streamlit(height=600)
