@@ -30,7 +30,8 @@ false_color_vis_params = {
     "bands": ["B8", "B4", "B3"],
 }
 
-def map_search(folium_map):  # sourcery skip: use-named-expression
+
+def map_search(folium_map: geemap.Map) -> None:  # sourcery skip: use-named-expression
     """
     The function to generate the search box above the map.
     """
