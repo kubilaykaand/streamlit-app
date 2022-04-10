@@ -29,10 +29,10 @@ def app():
     """
     )
 
-    image1 = Image.open(r"..\streamlit-app\assets\prefire.png")
-    image2 = Image.open(r"..\streamlit-app\assets\afterfire.png")
-    image3 = Image.open(r"..\streamlit-app\assets\grayscalednbr.png")
-    image4 = Image.open(r"..\streamlit-app\assets\classifieddnbr.png")
+    image1 = Image.open(r"..\assets\prefire.png")
+    image2 = Image.open(r"..\assets\afterfire.png")
+    image3 = Image.open(r"..\assets\grayscalednbr.png")
+    image4 = Image.open(r"..\assets\classifieddnbr.png")
 
     row1_col1, row1_col2 = st.columns(2)
     with row1_col1:
