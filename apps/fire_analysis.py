@@ -19,8 +19,7 @@ import geopandas as gpd
 # Local libraries
 from . import rois  # Why i am getting pylint error? code works fine.
 
-IMAGE_COLLECTION = "COPERNICUS/S2"
-MAP_WIDTH = 950
+SENTINEL = "COPERNICUS/S2"
 MAP_HEIGHT = 600
 CRS = "epsg:4326"  # Coordinate Reference System
 
