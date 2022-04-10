@@ -68,8 +68,6 @@ def uploaded_file_to_gdf(data):
 
 
 def app():
-    # sourcery skip: remove-redundant-if, remove-redundant-pass, use-named-expression
-
     """
     The main app that streamlit will render for fire analysis page.
     """
@@ -92,12 +90,12 @@ def app():
             "ROI olarak kullanmak için GeoJSON dosyası ekleyin 😇👇",
             type=["geojson", "kml", "zip"],
         )
-
         selected_roi = st.selectbox(
             "Çalışılacak roi'yi seçin veya GeoJSON dosyası yükleyin.",
             ["Yüklenilen GeoJSON"] + list(rois.fire_cases.keys()),
             index=0,
         )
+
         pre_fire = date.today() - datetime.timedelta(days=1)
         post_fire = date.today()
 
@@ -120,17 +118,15 @@ def app():
     with col1:
         st.info(
             "Adımlar: Harita üzerinde poligon çizin -> GeoJSON olarak export edin"
-            "-> Uygulumaya upload edin"
+            "-> Uygulamaya upload edin"
             "-> Tarih aralığı seçin."
         )
+
         map_search(main_map)
 
         if st.session_state.get("roi"):
             main_map.center_object(st.session_state["roi"])
             main_map.add_layer(st.session_state["roi"], name="ROI", opacity=0.5)
 
-        # Normal Satellite before & after fire
-        # False color before & after fire
-        # dNBR
 
         main_map.to_streamlit(height=600)
