@@ -22,7 +22,13 @@ from . import rois  # Why i am getting pylint error? code works fine.
 SENTINEL = "COPERNICUS/S2"
 MAP_HEIGHT = 600
 CRS = "epsg:4326"  # Coordinate Reference System
+rgb_vis_params = {
+    "bands": ["B4", "B3", "B2"],
+}
 
+false_color_vis_params = {
+    "bands": ["B8", "B4", "B3"],
+}
 
 def map_search(folium_map):  # sourcery skip: use-named-expression
     """
