@@ -32,10 +32,10 @@ def app():
     import os
     st.write(os.getcwd())
 
-    image1 = Image.open("../assets/prefire.png")
-    image2 = Image.open(r"..\assets\afterfire.png")
-    image3 = Image.open(r"..\assets\grayscalednbr.png")
-    image4 = Image.open(r"..\assets\classifieddnbr.png")
+    image1 = Image.open("assets/prefire.png")
+    image2 = Image.open("assets/afterfire.png")
+    image3 = Image.open("assets/grayscalednbr.png")
+    image4 = Image.open("assets/classifieddnbr.png")
 
     row1_col1, row1_col2 = st.columns(2)
     with row1_col1:
