@@ -29,7 +29,7 @@ def app():
     """
     )
 
-    image1 = Image.open(r"..\assets\prefire.png")
+    image1 = Image.open("../assets/prefire.png")
     image2 = Image.open(r"..\assets\afterfire.png")
     image3 = Image.open(r"..\assets\grayscalednbr.png")
     image4 = Image.open(r"..\assets\classifieddnbr.png")
