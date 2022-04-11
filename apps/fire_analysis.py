@@ -25,14 +25,14 @@ CRS = "epsg:4326"  # Coordinate Reference System
 
 rgb_vis_params = {
     "bands": ["B4", "B3", "B2"],
-    min: 0,
-    max: 2000,
+    "min": 0,
+    "max": 2000,
 }
 
 false_color_vis_params = {
     "bands": ["B8", "B4", "B3"],
-    min: 120,
-    max: 2898,
+    "min": 120,
+    "max": 2898,
 }
 
 
