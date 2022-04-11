@@ -139,7 +139,8 @@ def app():
 
         if st.session_state.get("roi"):
             main_map.center_object(st.session_state["roi"])
-            main_map.add_layer(st.session_state["roi"], name="ROI", opacity=0.5)
+            # lets not add the roi as a marker on the map
+            # main_map.add_layer(st.session_state["roi"], name="ROI", opacity=0.5)
 
             imagery = ee.ImageCollection(SENTINEL)
 
@@ -175,5 +176,7 @@ def app():
                 name="Postfire false color",
                 vis_params=false_color_vis_params,
             )
+
+            folium.map.LayerControl("topright", collapsed=False).add_to(main_map)
 
         main_map.to_streamlit(height=600)
