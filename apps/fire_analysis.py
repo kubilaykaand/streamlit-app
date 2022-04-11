@@ -167,12 +167,12 @@ def app():
 
             main_map.add_layer(
                 prefire_roi_region.clip(st.session_state.get("roi")),
-                name="Prefire",
+                name="Prefire false color",
                 vis_params=false_color_vis_params,
             )
             main_map.add_layer(
                 postfire_roi_region.clip(st.session_state.get("roi")),
-                name="Postfire",
+                name="Postfire false color",
                 vis_params=false_color_vis_params,
             )
 
