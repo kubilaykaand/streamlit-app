@@ -122,10 +122,10 @@ def app():
         pre_fire_date = st.date_input("Yangın başlangıç tarihi", pre_fire)
         post_fire_date = st.date_input("Yangın bitiş tarihi", post_fire)
         dates = {
-            "prefire_start": str(pre_fire_date - datetime.timedelta(days=5)),
+            "prefire_start": str(pre_fire_date - datetime.timedelta(days=12)),
             "prefire_end": str(pre_fire_date),
             "postfire_start": str(post_fire_date),
-            "postfire_end": str(post_fire_date + datetime.timedelta(days=5)),
+            "postfire_end": str(post_fire_date + datetime.timedelta(days=12)),
         }
 
     with col1:
@@ -148,10 +148,10 @@ def app():
 
             prefire_roi_region = roi_region.filterDate(
                 dates["prefire_start"], dates["prefire_end"]
-            ).median()
+            ).mosaic()
             postfire_roi_region = roi_region.filterDate(
                 dates["postfire_start"], dates["postfire_end"]
-            ).median()
+            ).mosaic()
 
             main_map.add_layer(
                 prefire_roi_region.clip(st.session_state.get("roi")),
