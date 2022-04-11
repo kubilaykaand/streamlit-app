@@ -17,7 +17,7 @@ import folium
 import geopandas as gpd
 
 # Local libraries
-from . import rois  # Why i am getting pylint error? code works fine.
+from . import rois 
 
 SENTINEL = "COPERNICUS/S2"
 MAP_HEIGHT = 600
