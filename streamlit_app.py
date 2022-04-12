@@ -3,6 +3,8 @@ Streamlit App
 """
 import streamlit as st
 from streamlit_option_menu import option_menu
+from PIL import Image
+
 from apps import fire_analysis, home
 
 st.set_page_config(page_title="Yangın Analizi", page_icon="🔥", layout="wide")
@@ -24,6 +26,9 @@ else:
     DEFAULT_INDEX = 0
 
 with st.sidebar:
+    logo = Image.open("assets/tema-logo.jpg")
+    st.image(logo, use_column_width=True)
+
     selected = option_menu(
         "TEMA",
         options=titles,
