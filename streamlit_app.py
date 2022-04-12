@@ -25,7 +25,7 @@ else:
 
 with st.sidebar:
     selected = option_menu(
-        "BAU - TEMA",
+        "TEMA",
         options=titles,
         icons=icons,
         menu_icon="list",
