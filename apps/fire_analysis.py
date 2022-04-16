@@ -159,7 +159,9 @@ def app():
             pre_nbr = pre_mos.normalizedDifference(["B8", "B12"])
             post_nbr = post_mos.normalizedDifference(["B8", "B12"])
 
-            delta_nbr = pre_nbr.subtract(post_nbr).multiply(1000) # why are we mutliplying by 1000?
+            delta_nbr = pre_nbr.subtract(post_nbr).multiply(
+                1000
+            )  # why are we mutliplying by 1000?
 
             with open("assets/sld_intervals.xml", "r", encoding="utf-8") as file:
                 sld_intervals = file.read()
@@ -167,8 +169,12 @@ def app():
             main_map.add_layer(pre_mos, rgb_vis_params, "Yangın öncesi görüntüler")
             main_map.add_layer(post_mos, rgb_vis_params, "Yangın sonrası görüntüler")
 
-            main_map.add_layer(pre_mos, false_color_vis_params, "Yangın öncesi false color")
-            main_map.add_layer(post_mos, false_color_vis_params, "Yangın sonrası false color")
+            main_map.add_layer(
+                pre_mos, false_color_vis_params, "Yangın öncesi false color"
+            )
+            main_map.add_layer(
+                post_mos, false_color_vis_params, "Yangın sonrası false color"
+            )
 
             main_map.add_layer(delta_nbr.sldStyle(sld_intervals), name="dNBR")
 
