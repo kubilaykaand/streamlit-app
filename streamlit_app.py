@@ -40,13 +40,10 @@ with st.sidebar:
     st.sidebar.title("Hakkında")
     st.sidebar.info(
         """
-        Bu uygulama [Osman](https://github.com/osbm), [Efe](https://github.com/EFCK) ve
-        [Bilal](https://github.com/qimenez) tarafından yazılmıştır.
-
-    [Sentinel-2](https://developers.google.com/earth-engine/datasets/catalog/sentinel)
-    verilerini kullanarak orman yangınlarının incelenmesini sağlayan web aplikasyonu.
-    Bu uygulama [streamlit](https://streamlit.io), [geemap](https://geemap.org) ve
-    [Google Earth Engine](https://earthengine.google.com) kullanılarak oluşturuldu.
+        Sentinel-2 verilerinden yararlanarak geliştirilen bu uygulama orman yangınlarının
+        tahribatının analiz edilmesi ve izlenmesi amacıyla [Osman](https://github.com/osbm), 
+        [Efe](https://github.com/EFCK) ve [Bilal](https://github.com/qimenez) tarafından 
+        TEMA işbirliğiyle hazırlandı..
         """
     )
 
