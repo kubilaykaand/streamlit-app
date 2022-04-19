@@ -122,8 +122,6 @@ def app():
             gdf = uploaded_file_to_gdf(data)
             st.session_state["roi"] = geemap.gdf_to_ee(gdf)
 
-
-        
         pre_fire_date = st.date_input(
             "Yangın başlangıç tarihi",
             pre_fire,
