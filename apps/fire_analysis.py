@@ -144,6 +144,7 @@ def app():
         }
 
         theButton = st.button("Analiz et")
+        print(theButton)
 
     with col1:
         st.info(
