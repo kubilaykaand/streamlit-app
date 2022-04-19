@@ -23,7 +23,7 @@ SENTINEL = "COPERNICUS/S2"
 MAP_HEIGHT = 600
 CRS = "epsg:4326"  # Coordinate Reference System
 DAY_WINDOW = 6
-
+INITIAL_DATE_WINDOW = 6
 rgb_vis_params = {
     "bands": ["B4", "B3", "B2"],
     "min": 0,
@@ -104,7 +104,7 @@ def app():
             index=0,
         )
 
-        pre_fire = date.today() - datetime.timedelta(days=1)
+        pre_fire = date.today() - datetime.timedelta(days=INITIAL_DATE_WINDOW)
         post_fire = date.today()
 
         if selected_roi != "Yüklenilen GeoJSON":  # rois coming from fire_cases
