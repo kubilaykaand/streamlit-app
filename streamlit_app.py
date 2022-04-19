@@ -42,7 +42,7 @@ with st.sidebar:
         """
         Sentinel-2 verilerinden yararlanarak geliştirilen bu uygulama orman yangınlarının
         tahribatının analiz edilmesi ve izlenmesi amacıyla [Osman](https://github.com/osbm), 
-        [Efe](https://github.com/EFCK) ve [Bilal](https://github.com/qimenez) tarafından 
+        [Efe](https://github.com/EFCK)  tarafından 
         TEMA işbirliğiyle hazırlandı..
         """
     )
