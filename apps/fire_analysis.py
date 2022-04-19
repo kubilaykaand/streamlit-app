@@ -19,7 +19,9 @@ import geopandas as gpd
 # Local libraries
 from . import rois
 
+
 SENTINEL = "COPERNICUS/S2"
+SENTINEL_LAUNCH = datetime.date(2017, 3, 8)
 MAP_HEIGHT = 600
 CRS = "epsg:4326"  # Coordinate Reference System
 DAY_WINDOW = 6
@@ -120,8 +122,20 @@ def app():
             gdf = uploaded_file_to_gdf(data)
             st.session_state["roi"] = geemap.gdf_to_ee(gdf)
 
-        pre_fire_date = st.date_input("Yangın başlangıç tarihi", pre_fire)
-        post_fire_date = st.date_input("Yangın bitiş tarihi", post_fire)
+
+        
+        pre_fire_date = st.date_input(
+            "Yangın başlangıç tarihi",
+            pre_fire,
+            min_value=SENTINEL_LAUNCH,
+            max_value=post_fire + datetime.timedelta(days=DAY_WINDOW),
+        )
+        post_fire_date = st.date_input(
+            "Yangın bitiş tarihi",
+            post_fire,
+            min_value=SENTINEL_LAUNCH,
+            max_value=post_fire + datetime.timedelta(days=DAY_WINDOW),
+        )
         dates = {
             "prefire_start": str(pre_fire_date - datetime.timedelta(days=DAY_WINDOW)),
             "prefire_end": str(pre_fire_date),
