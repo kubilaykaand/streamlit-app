@@ -143,6 +143,8 @@ def app():
             "postfire_end": str(post_fire_date + datetime.timedelta(days=DAY_WINDOW)),
         }
 
+        theButton = st.button("Analiz et")
+
     with col1:
         st.info(
             "Adımlar: Harita üzerinde poligon çizin -> GeoJSON olarak export edin"
