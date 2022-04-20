@@ -141,8 +141,8 @@ def app():
             "postfire_end": str(post_fire_date + datetime.timedelta(days=DAY_WINDOW)),
         }
 
-        theButton = st.button("Analiz et")
-        print(theButton)
+        the_button = st.button("Analiz et")
+        print(the_button)
 
     with col1:
         st.info(
