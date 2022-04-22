@@ -13,6 +13,7 @@ import geemap.foliumap as geemap
 import folium
 import geopandas as gpd
 
+
 def map_search(folium_map: geemap.Map) -> None:  # sourcery skip: use-named-expression
     """
     The function to generate the search box above the map.

@@ -13,7 +13,7 @@ st.set_page_config(page_title="Yangın Analizi", page_icon="🔥", layout="wide"
 apps = [
     {"func": home.app, "title": "Ana Sayfa", "icon": "house"},
     {"func": fire_analysis.app, "title": "Yangın Analizi", "icon": "geo-alt"},
-    {"func": timelapse.app, "title": "Timelapse", "icon": "hourglass-split"}
+    {"func": timelapse.app, "title": "Timelapse", "icon": "hourglass-split"},
 ]
 
 titles = [app["title"] for app in apps]
