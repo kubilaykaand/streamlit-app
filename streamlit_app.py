@@ -5,7 +5,7 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 from PIL import Image
 
-from apps import fire_analysis, home
+from apps import fire_analysis, home, timelapse
 
 st.set_page_config(page_title="Yangın Analizi", page_icon="🔥", layout="wide")
 
@@ -13,6 +13,7 @@ st.set_page_config(page_title="Yangın Analizi", page_icon="🔥", layout="wide"
 apps = [
     {"func": home.app, "title": "Ana Sayfa", "icon": "house"},
     {"func": fire_analysis.app, "title": "Yangın Analizi", "icon": "geo-alt"},
+    {"func": timelapse.app, "title": "Timelapse", "icon": "hourglass-split"},
 ]
 
 titles = [app["title"] for app in apps]
