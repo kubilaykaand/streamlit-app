@@ -19,6 +19,11 @@ import geopandas as gpd
 from . import rois
 from .functions import *
 
+CRS = "epsg:4326"  # Coordinate Reference System
+DAY_WINDOW = 6
+INITIAL_DATE_WINDOW = 6
 
 def app():
-    pass
+
+    st.title("Timelapse")
+    st.markdown("Belirlenmiş iki tarih arasında gif üreten sistem.")
