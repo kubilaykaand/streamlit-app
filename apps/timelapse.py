@@ -77,9 +77,15 @@ def app():
             "Görüntülenme rengini seçin",
             ["True Color","False Color","dNBR"]
         )
-        
+
         if selected_rgb == "True Color":
-            st.session_state["rgb"] = satellite_params.satellite["sentinel-2"][""]
+            st.session_state["vis_params"] = "True Color"
+        
+        elif selected_rgb == "False Color":
+            st.session_state["vis_params"] = "False Color"
+
+        elif selected_rgb == "dNBR":
+            st.session_state["vis_params"] = "dNBR"
 
         with st.container():
 
