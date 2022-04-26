@@ -16,7 +16,7 @@ import folium
 import geopandas as gpd
 
 # Local libraries
-from . import rois
+from . import rois, satellite_params
 from .functions import *
 
 CRS = "epsg:4326"  # Coordinate Reference System
@@ -42,6 +42,7 @@ def app():
         plugin_LatLngPopup=False,
     )
 
+
     with col2:
         data = st.file_uploader(
             "ROI olarak kullanmak için GeoJSON dosyası ekleyin 😇👇",
@@ -54,8 +55,18 @@ def app():
             index=0,
         )
 
-        pre_fire = date.today() - datetime.timedelta(days=INITIAL_DATE_WINDOW)
-        post_fire = date.today()
-
         if selected_roi != "Yüklenilen GeoJSON":  # rois coming from fire_cases
             st.session_state["roi"] = rois.fire_cases[selected_roi]["region"]
+
+        elif data:  # rois coming from users
+            gdf = uploaded_file_to_gdf(data)
+            st.session_state["roi"] = geemap.gdf_to_ee(gdf)
+
+        selected_satellite = st.selectbox(
+            "Çalışılacak uyduyu seçin",
+            list(satellite_params.satellite.keys())
+        )
+        
+
+        pre_fire = date.today() - datetime.timedelta(days=INITIAL_DATE_WINDOW)
+        post_fire = date.today()
