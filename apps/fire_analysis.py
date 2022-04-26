@@ -21,14 +21,14 @@ from . import rois, satellite_params
 from .functions import *
 
 
-SENTINEL = satellite_params.satellite["sentinel"]["name"]
-SENTINEL_LAUNCH = satellite_params.satellite["sentinel"]["launch"]
+SENTINEL = satellite_params.satellite["sentinel-2"]["name"]
+SENTINEL_LAUNCH = satellite_params.satellite["sentinel-2"]["launch"]
 MAP_HEIGHT = 600
 CRS = "epsg:4326"  # Coordinate Reference System
 DAY_WINDOW = 6
 INITIAL_DATE_WINDOW = 6
-rgb_vis_params = satellite_params.satellite["sentinel"]["rgb_vis_params"]
-false_color_vis_params = satellite_params.satellite["sentinel"]["false_color_vis_params"]
+rgb_vis_params = satellite_params.satellite["sentinel-2"]["rgb_vis_params"]
+false_color_vis_params = satellite_params.satellite["sentinel-2"]["false_color_vis_params"]
 
 def app():
     """

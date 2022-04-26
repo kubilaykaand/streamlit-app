@@ -67,6 +67,26 @@ def app():
             list(satellite_params.satellite.keys())
         )
         
+        if selected_satellite == "sentinel-2":
+            st.session_state["satellite"] = satellite_params.satellite["sentinel-2"]
+        
+        elif selected_satellite == "landsat-8":
+            st.session_state["satellite"] = satellite_params.satellite["landsat-8"]
+
+        selected_rgb = st.selectbox(
+            "Görüntülenme rengini seçin",
+            ["True Color","False Color","dNBR"]
+        )
+        
+        if selected_rgb == "True Color":
+            st.session_state["rgb"] = satellite_params.satellite["sentinel-2"][""]
+
+        with st.container():
+
+            slider_date = st.slider("Tarih Aralığı",value=[st.session_state["satellite"]["launch"],date.today()])
+
+            slider_fps = st.slider("FPS",min_value=1,max_value=60)
+
 
         pre_fire = date.today() - datetime.timedelta(days=INITIAL_DATE_WINDOW)
         post_fire = date.today()
