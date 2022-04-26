@@ -28,7 +28,10 @@ CRS = "epsg:4326"  # Coordinate Reference System
 DAY_WINDOW = 6
 INITIAL_DATE_WINDOW = 6
 rgb_vis_params = satellite_params.satellite["sentinel-2"]["rgb_vis_params"]
-false_color_vis_params = satellite_params.satellite["sentinel-2"]["false_color_vis_params"]
+false_color_vis_params = satellite_params.satellite["sentinel-2"][
+    "false_color_vis_params"
+]
+
 
 def app():
     """
@@ -96,7 +99,6 @@ def app():
         }
 
         the_button = st.button("Analiz et")
-        print(the_button)
 
     with col1:
         st.info(
