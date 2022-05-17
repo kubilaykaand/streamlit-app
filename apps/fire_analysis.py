@@ -86,13 +86,13 @@ def app():
             "Yangın başlangıç tarihi",
             pre_fire,
             min_value=SENTINEL_LAUNCH,
-            max_value=post_fire + datetime.timedelta(days=DAY_WINDOW),
+            max_value=date.today() - datetime.timedelta(days=DAY_WINDOW),
         )
         post_fire_date = st.date_input(
             "Yangın bitiş tarihi",
             post_fire,
             min_value=SENTINEL_LAUNCH,
-            max_value=post_fire + datetime.timedelta(days=DAY_WINDOW),
+            max_value=date.today()
         )
         dates = {
             "prefire_start": str(pre_fire_date - datetime.timedelta(days=DAY_WINDOW)),
