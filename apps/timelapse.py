@@ -17,7 +17,7 @@ import geopandas as gpd
 
 # Local libraries
 from . import rois
-from .functions import *
+from . import utils
 
 
 def app():

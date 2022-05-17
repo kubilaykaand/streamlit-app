@@ -1,11 +1,12 @@
 """
-Page for functions
+Page for utilities
 """
 
 # Standard libraries
 import tempfile
 import os
 import uuid
+import zipfile
 
 # Third party libraries
 import streamlit as st
@@ -44,8 +45,18 @@ def uploaded_file_to_gdf(data):
     with open(file_path, "wb") as file:
         file.write(data.getbuffer())
 
-    if not file_path.lower().endswith(".kml"):
-        return gpd.read_file(file_path)
-
     gpd.io.file.fiona.drvsupport.supported_drivers["KML"] = "rw"
-    return gpd.read_file(file_path, driver="KML")
+    if file_path.lower().endswith(".kml"):
+        return gpd.read_file(file_path, driver="KML")
+
+    if file_path.lower().endswith(".kmz"):
+        # unzip it to get kml file
+        in_kmz = os.path.abspath(file_path)
+        out_dir = os.path.dirname(in_kmz)
+        out_kml = os.path.join(out_dir, "doc.kml")
+        with zipfile.ZipFile(in_kmz, "r") as zip_ref:
+            zip_ref.extractall(out_dir)
+
+        return gpd.read_file(out_kml, driver="KML")
+
+    return gpd.read_file(file_path)

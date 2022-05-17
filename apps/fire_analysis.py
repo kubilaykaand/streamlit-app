@@ -5,20 +5,16 @@ The page for fire analysis page.
 # Standard libraries
 import datetime
 from datetime import date
-import tempfile
-import os
-import uuid
 
 # Third party libraries
 import streamlit as st
 import geemap.foliumap as geemap
 import ee
 import folium
-import geopandas as gpd
 
 # Local libraries
 from . import rois
-from .functions import *
+from . import utils
 
 
 SENTINEL = "COPERNICUS/S2"
@@ -61,7 +57,7 @@ def app():
     with col2:
         data = st.file_uploader(
             "ROI olarak kullanmak için GeoJSON dosyası ekleyin 😇👇",
-            type=["geojson", "kml", "zip"],
+            type=["geojson", "kml", "zip", "kmz"],
         )
 
         selected_roi = st.selectbox(
@@ -83,7 +79,7 @@ def app():
             )
 
         elif data:  # rois coming from users
-            gdf = uploaded_file_to_gdf(data)
+            gdf = utils.uploaded_file_to_gdf(data)
             st.session_state["roi"] = geemap.gdf_to_ee(gdf)
 
         pre_fire_date = st.date_input(
@@ -115,7 +111,7 @@ def app():
             "-> Tarih aralığı seçin."
         )
 
-        map_search(main_map)
+        utils.map_search(main_map)
 
         if st.session_state.get("roi"):
             main_map.center_object(st.session_state["roi"])
