@@ -13,27 +13,19 @@ import ee
 import folium
 
 # Local libraries
-from . import rois
-from . import utils
 
+from . import rois, satellite_params, functions
 
-SENTINEL = "COPERNICUS/S2"
-SENTINEL_LAUNCH = datetime.date(2017, 3, 8)
+SENTINEL = satellite_params.satellite["sentinel-2"]["name"]
+SENTINEL_LAUNCH = satellite_params.satellite["sentinel-2"]["launch"]
 MAP_HEIGHT = 600
 CRS = "epsg:4326"  # Coordinate Reference System
 DAY_WINDOW = 6
 INITIAL_DATE_WINDOW = 6
-rgb_vis_params = {
-    "bands": ["B4", "B3", "B2"],
-    "min": 0,
-    "max": 2000,
-}
-
-false_color_vis_params = {
-    "bands": ["B8", "B4", "B3"],
-    "min": 120,
-    "max": 2898,
-}
+rgb_vis_params = satellite_params.satellite["sentinel-2"]["rgb_vis_params"]
+false_color_vis_params = satellite_params.satellite["sentinel-2"][
+    "false_color_vis_params"
+]
 
 
 def app():
@@ -102,7 +94,6 @@ def app():
         }
 
         the_button = st.button("Analiz et")
-        print(the_button)
 
     with col1:
         st.info(
