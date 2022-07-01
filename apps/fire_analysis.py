@@ -16,7 +16,6 @@ import folium
 
 from . import rois, satellite_params, utils
 
-
 SENTINEL = satellite_params.satellite["sentinel-2"]["name"]
 SENTINEL_LAUNCH = satellite_params.satellite["sentinel-2"]["launch"]
 MAP_HEIGHT = 600
