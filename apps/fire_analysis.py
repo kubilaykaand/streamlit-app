@@ -14,7 +14,8 @@ import folium
 
 # Local libraries
 
-from . import rois, satellite_params, functions
+from . import rois, satellite_params, utils
+
 
 SENTINEL = satellite_params.satellite["sentinel-2"]["name"]
 SENTINEL_LAUNCH = satellite_params.satellite["sentinel-2"]["launch"]

@@ -16,7 +16,7 @@ import folium
 import geopandas as gpd
 
 # Local libraries
-from . import rois, satellite_params, functions
+from . import rois, satellite_params, utils
 
 CRS = "epsg:4326"  # Coordinate Reference System
 DAY_WINDOW = 6
