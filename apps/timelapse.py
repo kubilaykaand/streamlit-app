@@ -57,7 +57,7 @@ def app():
             st.session_state["roi"] = rois.fire_cases[selected_roi]["region"]
 
         elif data:  # rois coming from users
-            gdf = uploaded_file_to_gdf(data)
+            gdf = utils.uploaded_file_to_gdf(data)
             st.session_state["roi"] = geemap.gdf_to_ee(gdf)
 
         selected_satellite = st.selectbox(
