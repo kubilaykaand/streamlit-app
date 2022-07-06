@@ -4,4 +4,4 @@ streamlit-option-menu==0.3.2
 leafmap==0.9.6
 geopandas==0.11.0
 earthengine-api==0.1.316
-click==8.0.0
+click==8.1.3
