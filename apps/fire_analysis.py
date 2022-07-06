@@ -20,8 +20,7 @@ SENTINEL = satellite_params.satellite["sentinel-2"]["name"]
 SENTINEL_LAUNCH = satellite_params.satellite["sentinel-2"]["launch"]
 MAP_HEIGHT = 600
 CRS = "epsg:4326"  # Coordinate Reference System
-DAY_WINDOW = 6
-INITIAL_DATE_WINDOW = 6
+DAY_WINDOW = datetime.timedelta(days=6)
 rgb_vis_params = satellite_params.satellite["sentinel-2"]["rgb_vis_params"]
 false_color_vis_params = satellite_params.satellite["sentinel-2"][
     "false_color_vis_params"
@@ -46,6 +45,9 @@ def app():
         plugin_LatLngPopup=False,
     )
 
+    pre_fire = date.today() - 2 * DAY_WINDOW
+    post_fire = date.today() - DAY_WINDOW
+
     with col2:
         data = st.file_uploader(
             "ROI olarak kullanmak için GeoJSON dosyası ekleyin 😇👇",
@@ -58,9 +60,6 @@ def app():
             index=0,
         )
 
-        pre_fire = date.today() - datetime.timedelta(days=INITIAL_DATE_WINDOW)
-        post_fire = date.today()
-
         if selected_roi != "Yüklenilen GeoJSON":  # rois coming from fire_cases
             st.session_state["roi"] = rois.fire_cases[selected_roi]["region"]
             pre_fire = date.fromisoformat(
@@ -70,36 +69,42 @@ def app():
                 rois.fire_cases[selected_roi]["date_range"][1]
             )
 
-        elif data:  # rois coming from users
+        elif data:  # if rois coming from users
             gdf = utils.uploaded_file_to_gdf(data)
             st.session_state["roi"] = geemap.gdf_to_ee(gdf)
 
-        pre_fire_date = st.date_input(
+        pre_fire = st.date_input(  # to update dates according to the user selection
             "Yangın başlangıç tarihi",
             pre_fire,
             min_value=SENTINEL_LAUNCH,
-            max_value=date.today() - datetime.timedelta(days=DAY_WINDOW),
+            max_value=date.today() - 2 * DAY_WINDOW,
         )
-        post_fire_date = st.date_input(
+
+        post_fire = st.date_input(
             "Yangın bitiş tarihi",
             post_fire,
             min_value=SENTINEL_LAUNCH,
-            max_value=date.today(),
+            max_value=date.today() - DAY_WINDOW,
         )
+
         dates = {
-            "prefire_start": str(pre_fire_date - datetime.timedelta(days=DAY_WINDOW)),
-            "prefire_end": str(pre_fire_date),
-            "postfire_start": str(post_fire_date),
-            "postfire_end": str(post_fire_date + datetime.timedelta(days=DAY_WINDOW)),
+            "prefire_start": str(pre_fire - DAY_WINDOW),
+            "prefire_end": str(pre_fire),
+            "postfire_start": str(post_fire),
+            "postfire_end": str(post_fire + DAY_WINDOW),
         }
 
-        the_button = st.button("Analiz et")
+        with st.expander("Grafikleri görüntüle"):
+            st.write("s")
+
+        with st.expander("Çıktıları indir"):
+            st.write("Çıktılar zip olarak hazırlanıyor...")
 
     with col1:
         st.info(
-            "Adımlar: Harita üzerinde poligon çizin -> GeoJSON olarak export edin"
-            "-> Uygulamaya upload edin"
-            "-> Tarih aralığı seçin."
+            "Adımlar: Harita üzerinde poligon çizin ➡ GeoJSON olarak export edin"
+            " ➡ Uygulamaya upload edin"
+            " ➡ Tarih aralığı seçin."
         )
 
         utils.map_search(main_map)
