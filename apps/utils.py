@@ -44,13 +44,14 @@ def uploaded_file_to_gdf(data):
     _, file_extension = os.path.splitext(data.name)
     file_id = str(uuid.uuid4())
     file_path = os.path.join(tempfile.gettempdir(), f"{file_id}{file_extension}")
-    print(file_path)
+
     with open(file_path, "wb") as file:
         file.write(data.getbuffer())
 
-    if file_path.lower().endswith(".kml"):
 
-        return gpd.read_file(file_path, driver="KML")
+    if file_path.lower().endswith(".kml"):
+        with open (file_path,"r") as file:
+            print(file.read())
 
     if file_path.lower().endswith(".kmz"):
         # unzip it to get kml file
@@ -62,9 +63,11 @@ def uploaded_file_to_gdf(data):
 
         return gpd.read_file(out_kml, driver="KML")
 
+
+
     if file_path.lower().endswith(".geojson"):
-        with open(file_path,"r") as f:
-            data = json.loads(f.read())
+        with open(file_path,"r") as file:
+            data = json.loads(file.read())
 
         fire_cases["Uploaded data"] = {"region": ee.Geometry.Polygon(data["features"][0]["geometry"]["coordinates"][0]),
         "date_range": ["2021-07-30", "2021-08-10"],}
