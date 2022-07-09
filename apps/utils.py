@@ -8,6 +8,7 @@ import os
 import uuid
 import zipfile
 import json
+import xml.etree.ElementTree as et
 
 # Third party libraries
 import streamlit as st
@@ -15,6 +16,7 @@ import geemap.foliumap as geemap
 import folium
 import geopandas as gpd
 import ee
+from lxml import etree
 from .rois import fire_cases
 
 
@@ -48,10 +50,32 @@ def uploaded_file_to_gdf(data):
     with open(file_path, "wb") as file:
         file.write(data.getbuffer())
 
-
     if file_path.lower().endswith(".kml"):
-        with open (file_path,"r") as file:
-            print(file.read())
+
+        root = etree.parse(file_path)
+
+        for e in root.iter():
+            path = root.getelementpath(e).split("}")[0] + "}"
+
+        tree = et.parse(file_path)
+        root = tree.getroot()
+
+        name = root.find(f".//*{path}coordinates")
+        geolist = name.text.strip().split(" ")
+
+        geometry = []
+
+        for i in geolist:
+            current = i.split(",")
+            # en az 3 point içermesi lazım yoksa EEException error veriyor.
+            geometry.append([float(current[0]), float(current[1])])
+
+        fire_cases["Uploaded data"] = {
+            "region": ee.Geometry.Polygon(geometry),
+            "date_range": ["2021-07-30", "2021-08-10"],
+        }
+
+        return 1
 
     if file_path.lower().endswith(".kmz"):
         # unzip it to get kml file
@@ -63,12 +87,14 @@ def uploaded_file_to_gdf(data):
 
         return gpd.read_file(out_kml, driver="KML")
 
-
-
     if file_path.lower().endswith(".geojson"):
-        with open(file_path,"r") as file:
+        with open(file_path, "r") as file:
             data = json.loads(file.read())
 
-        fire_cases["Uploaded data"] = {"region": ee.Geometry.Polygon(data["features"][0]["geometry"]["coordinates"][0]),
-        "date_range": ["2021-07-30", "2021-08-10"],}
+        fire_cases["Uploaded data"] = {
+            "region": ee.Geometry.Polygon(
+                data["features"][0]["geometry"]["coordinates"][0]
+            ),
+            "date_range": ["2021-07-30", "2021-08-10"],
+        }
         return 3
