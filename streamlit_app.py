@@ -2,10 +2,10 @@
 Streamlit App
 """
 import streamlit as st
-from streamlit_option_menu import option_menu
-from PIL import Image
-
 from apps import fire_analysis, home, timelapse
+from PIL import Image
+from streamlit_option_menu import option_menu
+
 
 st.set_page_config(page_title="Yangın Analizi", page_icon="🔥", layout="wide")
 
