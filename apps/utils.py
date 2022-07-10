@@ -73,7 +73,6 @@ def uploaded_file_to_gdf(data):
     with open(file_path, "wb") as file:
         file.write(data.getbuffer())
 
-
     # gpd.io.file.fiona.drvsupport.supported_drivers["KML"] = "rw"
 
     if file_path.lower().endswith(".kml"):
