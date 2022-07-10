@@ -91,7 +91,7 @@ def uploaded_file_to_gdf(data):
         return kml_geometry_export(out_kml)
 
     if file_path.lower().endswith(".geojson"):
-        with open(file_path, "r") as file:
+        with open(file_path, "r", encoding="utf-8") as file:
             data = json.loads(file.read())
 
         return ee.Geometry.Polygon(data["features"][0]["geometry"]["coordinates"][0])

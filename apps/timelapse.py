@@ -7,10 +7,9 @@ from datetime import date
 # Third party libraries
 import streamlit as st
 import geemap.foliumap as geemap
-import ee
 
 # Local libraries
-from . import rois, satellite_params, utils
+from . import rois, satellite_params
 
 CRS = "epsg:4326"  # Coordinate Reference System
 DAY_WINDOW = 6
