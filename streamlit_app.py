@@ -8,6 +8,8 @@ from apps import fire_analysis, home, timelapse
 from streamlit_option_menu import option_menu
 from PIL import Image
 
+from typing import Callable
+
 
 st.set_page_config(page_title="Yangın Analizi", page_icon="🔥", layout="wide")
 
@@ -53,5 +55,6 @@ with st.sidebar:
 
 for app in apps:
     if app["title"] == selected:
-        app["func"]()
+        page_func: Callable = app["func"]
+        page_func()
         break
