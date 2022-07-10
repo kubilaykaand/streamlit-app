@@ -85,7 +85,6 @@ def app():
 
         slider_fps = st.slider("FPS", min_value=1, max_value=60)
 
-
         print(slider_date, slider_fps)
         with st.expander("Grafikleri görüntüle"):
             st.write("Grafikler yükleniyor...")
