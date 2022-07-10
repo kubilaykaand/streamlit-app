@@ -48,19 +48,19 @@ def app():
     pre_fire = date.today() - 2 * DAY_WINDOW
     post_fire = date.today() - DAY_WINDOW
 
-    with col2:
+    with col2:  # right column
         data = st.file_uploader(
-            "ROI olarak kullanmak için GeoJSON dosyası ekleyin 😇👇",
+            "ROI olarak kullanmak için şekil dosyası ekleyin 😇👇",
             type=["geojson", "kml", "zip", "kmz"],
         )
 
         selected_roi = st.selectbox(
-            "Çalışılacak roi'yi seçin veya GeoJSON dosyası yükleyin.",
-            ["Yüklenilen GeoJSON"] + list(rois.fire_cases.keys()),
+            "Çalışılacak ROI'yi seçin veya şekil dosyası yükleyin.",
+            ["Yüklenilen dosyayı seç"] + list(rois.fire_cases.keys()),
             index=0,
         )
 
-        if selected_roi != "Yüklenilen GeoJSON":  # rois coming from fire_cases
+        if selected_roi != "Yüklenilen dosyayı seç":  # rois coming from fire_cases
             st.session_state["roi"] = rois.fire_cases[selected_roi]["region"]
             pre_fire = date.fromisoformat(
                 rois.fire_cases[selected_roi]["date_range"][0]
@@ -94,12 +94,16 @@ def app():
         }
 
         with st.expander("Grafikleri görüntüle"):
-            st.write("s")
+            empty_graph_text = st.empty()
+            empty_graph_text.text("Grafikler yükleniyor ...")
+
+            empty_chart = st.empty()
 
         with st.expander("Çıktıları indir"):
+
             st.write("Çıktılar zip olarak hazırlanıyor...")
 
-    with col1:
+    with col1:  # left column
         st.info(
             "Adımlar: Harita üzerinde poligon çizin ➡ GeoJSON olarak export edin"
             " ➡ Uygulamaya upload edin"
@@ -149,5 +153,24 @@ def app():
             main_map.add_layer(delta_nbr.sldStyle(sld_intervals), name="dNBR")
 
             folium.map.LayerControl("topright", collapsed=False).add_to(main_map)
+
+            # add legend to the map
+            main_map.add_legend(
+                title="dNBR Sınıfı",
+                legend_dict={
+                    "Veri Yok": "ffffff",
+                    "Yüksek yeniden büyüme": "7a8737",
+                    "Düşük yeniden büyüme": "acbe4d",
+                    "Yanmamış": "0ae042",
+                    "Düşük Tahribat": "fff70b",
+                    "Orta-Düşük tahribat": "ffaf38",
+                    "Orta-yüksek tahribat": "ff641b",
+                    "Yüksek tahribat": "a41fd6",
+                },
+            )
+
+            # after this calculate the charts and add them to the right panel
+
+            empty_graph_text.text("Grafikler yüklendi")
 
         main_map.to_streamlit(height=600)
