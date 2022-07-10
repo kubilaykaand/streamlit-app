@@ -2,17 +2,13 @@
 The page for fire analysis page.
 """
 
-# Standard libraries
 import datetime
 from datetime import date
 
-# Third party libraries
-import streamlit as st
-import geemap.foliumap as geemap
 import ee
 import folium
-
-# Local libraries
+import geemap.foliumap as geemap
+import streamlit as st
 
 from . import rois, satellite_params, utils
 

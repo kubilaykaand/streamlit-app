@@ -1,14 +1,12 @@
 """
 The page for create timelapse
 """
-# Standard libraries
+
 from datetime import date
 
-# Third party libraries
-import streamlit as st
 import geemap.foliumap as geemap
+import streamlit as st
 
-# Local libraries
 from . import rois, satellite_params, utils
 
 CRS = "epsg:4326"  # Coordinate Reference System
