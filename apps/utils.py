@@ -14,7 +14,7 @@ import xml.etree.ElementTree as et
 import streamlit as st
 import geemap.foliumap as geemap
 import folium
-import geopandas as gpd
+#import geopandas as gpd
 import ee
 from lxml import etree
 from .rois import fire_cases
