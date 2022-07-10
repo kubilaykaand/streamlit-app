@@ -1,3 +1,5 @@
+# Fire damage severity analysis tool
+
 You can access the project via [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/bauaai/streamlit-app/main)
 
 
