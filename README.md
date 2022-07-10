@@ -3,7 +3,7 @@
 You can access the project via [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/bauaai/streamlit-app/main)
 
 
-#### Steps to create open the app locally
+## Steps to create open the app locally
 
 >You need the python 3.6 or higher version to run the app locally.
 
