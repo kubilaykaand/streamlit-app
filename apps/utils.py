@@ -18,7 +18,6 @@ import folium
 # import geopandas as gpd
 import ee
 from lxml import etree
-from .rois import fire_cases
 
 
 def map_search(folium_map: geemap.Map) -> None:  # sourcery skip: use-named-expression
@@ -40,11 +39,14 @@ def map_search(folium_map: geemap.Map) -> None:  # sourcery skip: use-named-expr
 
 
 def kml_geometry_export(file_path):
+    """
+    The function to export the geometry of a KML file.
+    """
 
     root = etree.parse(file_path)
 
-    for e in root.iter():
-        path = root.getelementpath(e).split("}")[0] + "}"
+    for i in root.iter():
+        path = root.getelementpath(i).split("}")[0] + "}"
 
     tree = et.parse(file_path)
     root = tree.getroot()

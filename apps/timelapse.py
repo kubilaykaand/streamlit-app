@@ -9,7 +9,7 @@ import streamlit as st
 import geemap.foliumap as geemap
 
 # Local libraries
-from . import rois, satellite_params
+from . import rois, satellite_params, utils
 
 CRS = "epsg:4326"  # Coordinate Reference System
 DAY_WINDOW = 6
@@ -23,7 +23,7 @@ def app():
     st.title("Timelapse")
     st.markdown("Belirlenmiş iki tarih arasında gif üreten sistem.")
 
-    col1, col2 = st.columns([2, 1])
+    _, col2 = st.columns([2, 1])
 
     if st.session_state.get("zoom_level") is None:
         st.session_state["zoom_level"] = 4
@@ -35,7 +35,7 @@ def app():
         locate_control=True,
         plugin_LatLngPopup=False,
     )
-
+    print(main_map)
     with col2:
         data = st.file_uploader(
             "ROI olarak kullanmak için GeoJSON dosyası ekleyin 😇👇",
@@ -52,7 +52,7 @@ def app():
             st.session_state["roi"] = rois.fire_cases[selected_roi]["region"]
 
         elif data:  # rois coming from users
-            gdf = uploaded_file_to_gdf(data)
+            gdf = utils.uploaded_file_to_gdf(data)
             st.session_state["roi"] = geemap.gdf_to_ee(gdf)
 
         selected_satellite = st.selectbox(
