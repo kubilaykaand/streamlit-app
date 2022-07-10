@@ -97,7 +97,7 @@ def app():
             empty_graph_text = st.empty()
             empty_graph_text.text("Grafikler yükleniyor ...")
 
-            empty_chart = st.empty()
+            # empty_chart = st.empty()
 
         with st.expander("Çıktıları indir"):
 
