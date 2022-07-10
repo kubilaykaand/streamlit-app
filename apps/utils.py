@@ -70,12 +70,7 @@ def uploaded_file_to_gdf(data):
             # en az 3 point içermesi lazım yoksa EEException error veriyor.
             geometry.append([float(current[0]), float(current[1])])
 
-        fire_cases["Uploaded data"] = {
-            "region": ee.Geometry.Polygon(geometry),
-            "date_range": ["2021-07-30", "2021-08-10"],
-        }
-
-        return 1
+        return ee.Geometry.Polygon(geometry)
 
     if file_path.lower().endswith(".kmz"):
         # unzip it to get kml file
@@ -91,10 +86,4 @@ def uploaded_file_to_gdf(data):
         with open(file_path, "r") as file:
             data = json.loads(file.read())
 
-        fire_cases["Uploaded data"] = {
-            "region": ee.Geometry.Polygon(
-                data["features"][0]["geometry"]["coordinates"][0]
-            ),
-            "date_range": ["2021-07-30", "2021-08-10"],
-        }
-        return 3
+        return ee.Geometry.Polygon(data["features"][0]["geometry"]["coordinates"][0])
