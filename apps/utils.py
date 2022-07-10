@@ -38,6 +38,29 @@ def map_search(folium_map: geemap.Map) -> None:  # sourcery skip: use-named-expr
             st.session_state["zoom_level"] = 12
 
 
+def kml_geometry_export(file_path):
+
+    root = etree.parse(file_path)
+
+    for e in root.iter():
+        path = root.getelementpath(e).split("}")[0] + "}"
+
+    tree = et.parse(file_path)
+    root = tree.getroot()
+
+    name = root.find(f".//*{path}coordinates")
+    geolist = name.text.strip().split(" ")
+
+    geometry = []
+
+    for i in geolist:
+        current = i.split(",")
+        # en az 3 point içermesi lazım yoksa EEException error veriyor.
+        geometry.append([float(current[0]), float(current[1])])
+
+    return ee.Geometry.Polygon(geometry)
+
+
 @st.cache
 def uploaded_file_to_gdf(data):
     """
@@ -52,25 +75,7 @@ def uploaded_file_to_gdf(data):
 
     if file_path.lower().endswith(".kml"):
 
-        root = etree.parse(file_path)
-
-        for e in root.iter():
-            path = root.getelementpath(e).split("}")[0] + "}"
-
-        tree = et.parse(file_path)
-        root = tree.getroot()
-
-        name = root.find(f".//*{path}coordinates")
-        geolist = name.text.strip().split(" ")
-
-        geometry = []
-
-        for i in geolist:
-            current = i.split(",")
-            # en az 3 point içermesi lazım yoksa EEException error veriyor.
-            geometry.append([float(current[0]), float(current[1])])
-
-        return ee.Geometry.Polygon(geometry)
+        return kml_geometry_export(file_path)
 
     if file_path.lower().endswith(".kmz"):
         # unzip it to get kml file
@@ -80,7 +85,7 @@ def uploaded_file_to_gdf(data):
         with zipfile.ZipFile(in_kmz, "r") as zip_ref:
             zip_ref.extractall(out_dir)
 
-        return gpd.read_file(out_kml, driver="KML")
+        return kml_geometry_export(out_kml)
 
     if file_path.lower().endswith(".geojson"):
         with open(file_path, "r") as file:
