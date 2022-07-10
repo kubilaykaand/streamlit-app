@@ -70,8 +70,7 @@ def app():
             )
 
         elif data:  # if rois coming from users
-            gdf = utils.uploaded_file_to_gdf(data)
-            st.session_state["roi"] = geemap.gdf_to_ee(gdf)
+            st.session_state["roi"] = utils.uploaded_file_to_gdf(data)
 
         pre_fire = st.date_input(  # to update dates according to the user selection
             "Yangın başlangıç tarihi",

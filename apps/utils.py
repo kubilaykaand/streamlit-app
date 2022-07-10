@@ -7,12 +7,17 @@ import tempfile
 import os
 import uuid
 import zipfile
+import json
+import xml.etree.ElementTree as et
 
 # Third party libraries
 import streamlit as st
 import geemap.foliumap as geemap
 import folium
 import geopandas as gpd
+import ee
+from lxml import etree
+from .rois import fire_cases
 
 
 def map_search(folium_map: geemap.Map) -> None:  # sourcery skip: use-named-expression
@@ -33,6 +38,29 @@ def map_search(folium_map: geemap.Map) -> None:  # sourcery skip: use-named-expr
             st.session_state["zoom_level"] = 12
 
 
+def kml_geometry_export(file_path):
+
+    root = etree.parse(file_path)
+
+    for e in root.iter():
+        path = root.getelementpath(e).split("}")[0] + "}"
+
+    tree = et.parse(file_path)
+    root = tree.getroot()
+
+    name = root.find(f".//*{path}coordinates")
+    geolist = name.text.strip().split(" ")
+
+    geometry = []
+
+    for i in geolist:
+        current = i.split(",")
+        # en az 3 point içermesi lazım yoksa EEException error veriyor.
+        geometry.append([float(current[0]), float(current[1])])
+
+    return ee.Geometry.Polygon(geometry)
+
+
 @st.cache
 def uploaded_file_to_gdf(data):
     """
@@ -46,8 +74,10 @@ def uploaded_file_to_gdf(data):
         file.write(data.getbuffer())
 
     # gpd.io.file.fiona.drvsupport.supported_drivers["KML"] = "rw"
+
     if file_path.lower().endswith(".kml"):
-        return gpd.read_file(file_path, driver="KML")
+
+        return kml_geometry_export(file_path)
 
     if file_path.lower().endswith(".kmz"):
         # unzip it to get kml file
@@ -57,6 +87,10 @@ def uploaded_file_to_gdf(data):
         with zipfile.ZipFile(in_kmz, "r") as zip_ref:
             zip_ref.extractall(out_dir)
 
-        return gpd.read_file(out_kml, driver="KML")
+        return kml_geometry_export(out_kml)
 
-    return gpd.read_file(file_path)
+    if file_path.lower().endswith(".geojson"):
+        with open(file_path, "r") as file:
+            data = json.loads(file.read())
+
+        return ee.Geometry.Polygon(data["features"][0]["geometry"]["coordinates"][0])
