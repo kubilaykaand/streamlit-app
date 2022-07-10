@@ -61,7 +61,7 @@ def kml_geometry_export(file_path):
     return ee.Geometry.Polygon(geometry)
 
 
-@st.cache(hash_funcs={_json.Scanner: my_hash_func})
+@st.experimental_memo
 def uploaded_file_to_gdf(data):
     """
     The function to convert uploaded file to geodataframe.
