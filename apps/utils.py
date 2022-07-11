@@ -2,22 +2,20 @@
 Page for utilities
 """
 
-# Standard libraries
-import tempfile
-import os
-import uuid
-import zipfile
 import json
-import xml.etree.ElementTree as et
+import os
 
-# Third party libraries
-import streamlit as st
-import geemap.foliumap as geemap
-import folium
-import geopandas as gpd
+import tempfile
+import uuid
+import xml.etree.ElementTree as et
+import zipfile
+
 import ee
+import folium
+import geemap.foliumap as geemap
+
+import streamlit as st
 from lxml import etree
-from .rois import fire_cases
 
 
 def map_search(folium_map: geemap.Map) -> None:  # sourcery skip: use-named-expression
@@ -39,11 +37,14 @@ def map_search(folium_map: geemap.Map) -> None:  # sourcery skip: use-named-expr
 
 
 def kml_geometry_export(file_path):
+    """
+    The function to export the geometry of a KML file.
+    """
 
     root = etree.parse(file_path)
 
-    for e in root.iter():
-        path = root.getelementpath(e).split("}")[0] + "}"
+    for i in root.iter():
+        path = root.getelementpath(i).split("}")[0] + "}"
 
     tree = et.parse(file_path)
     root = tree.getroot()
@@ -90,7 +91,7 @@ def uploaded_file_to_gdf(data):
         return kml_geometry_export(out_kml)
 
     if file_path.lower().endswith(".geojson"):
-        with open(file_path, "r") as file:
+        with open(file_path, "r", encoding="utf-8") as file:
             data = json.loads(file.read())
 
         return ee.Geometry.Polygon(data["features"][0]["geometry"]["coordinates"][0])

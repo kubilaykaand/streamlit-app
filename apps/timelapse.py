@@ -1,21 +1,12 @@
 """
 The page for create timelapse
 """
-# Standard libraries
-import datetime
+
 from datetime import date
-import tempfile
-import os
-import uuid
 
-# Third party libraries
-import streamlit as st
 import geemap.foliumap as geemap
-import ee
-import folium
-import geopandas as gpd
+import streamlit as st
 
-# Local libraries
 from . import rois, satellite_params, utils
 
 CRS = "epsg:4326"  # Coordinate Reference System
@@ -24,11 +15,13 @@ INITIAL_DATE_WINDOW = 6
 
 
 def app():
-
+    """
+    The main app that streamlit will render for create timelapse page.
+    """
     st.title("Timelapse")
     st.markdown("Belirlenmiş iki tarih arasında gif üreten sistem.")
 
-    col1, col2 = st.columns([2, 1])
+    _, col2 = st.columns([2, 1])
 
     if st.session_state.get("zoom_level") is None:
         st.session_state["zoom_level"] = 4
@@ -40,7 +33,7 @@ def app():
         locate_control=True,
         plugin_LatLngPopup=False,
     )
-
+    print(main_map)
     with col2:
         data = st.file_uploader(
             "ROI olarak kullanmak için GeoJSON dosyası ekleyin 😇👇",
@@ -49,11 +42,11 @@ def app():
 
         selected_roi = st.selectbox(
             "Çalışılacak roi'yi seçin veya GeoJSON dosyası yükleyin.",
-            ["Yüklenilen GeoJSON"] + list(rois.fire_cases.keys()),
+            ["Yüklenilen dosyayı seç"] + list(rois.fire_cases.keys()),
             index=0,
         )
 
-        if selected_roi != "Yüklenilen GeoJSON":  # rois coming from fire_cases
+        if selected_roi != "Yüklenilen dosyayı seç":  # rois coming from fire_cases
             st.session_state["roi"] = rois.fire_cases[selected_roi]["region"]
 
         elif data:  # rois coming from users
@@ -90,10 +83,6 @@ def app():
 
         slider_fps = st.slider("FPS", min_value=1, max_value=60)
 
-        the_button = st.button("Submit")
-
-        if the_button:
-            pass
-
-        pre_fire = date.today() - datetime.timedelta(days=INITIAL_DATE_WINDOW)
-        post_fire = date.today()
+        print(slider_date, slider_fps)
+        with st.expander("Grafikleri görüntüle"):
+            st.write("Grafikler yükleniyor...")

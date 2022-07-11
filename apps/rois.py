@@ -2,8 +2,8 @@
 Define ROIs for the application.
 """
 
-import geemap.foliumap as geemap
 import ee
+import geemap.foliumap as geemap
 
 geemap.ee_initialize()
 
