@@ -9,22 +9,8 @@ roi=ee.Geometry.Polygon()
 geometry= ee.Geometry.Polygon(roi)
 Map.addLayer(geometry, {}, 'geometry.json')
 #get the geometry input from the user
-geometry= ee.Geometry.Polygon(
-  [
-    [ // exterior ring
-      [100.0, 0.0],
-      [103.0, 0.0],
-      [103.0, 3.0],
-      [100.0, 3.0],
-      [100.0, 0.0]  // matching the first vertex is optional
-    ],
-    [ // interior ring
-      [101.0, 1.0],
-      [102.0, 2.0],
-      [102.0, 1.0]
-    ]
-  ]
-)
+geometry= ee.Geometry.Polygon(geometry)
+
 Map.addLayer(geometry, {}, 'geometry.json');
 
 #get the forest loss image provided from hansen datasets
