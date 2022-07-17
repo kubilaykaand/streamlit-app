@@ -9,9 +9,6 @@ roi=ee.Geometry.Polygon()
 geometry= ee.Geometry.Polygon(roi)
 Map.addLayer(geometry, {}, 'geometry.json')
 #get the geometry input from the user
-geometry= ee.Geometry.Polygon(geometry)
-
-Map.addLayer(geometry, {}, 'geometry.json');
 
 #get the forest loss image provided from hansen datasets
 gfc2014= ee.Image('UMD/hansen/global_forest_change_2015')
