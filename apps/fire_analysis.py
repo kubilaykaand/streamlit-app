@@ -46,7 +46,7 @@ def app():
 
     with col2:  # right column
         data = st.file_uploader(
-            'ROI olarak kullanmak için şekil dosyası ekleyin.',
+            "ROI olarak kullanmak için şekil dosyası ekleyin.",
             type=["geojson", "kml", "zip", "kmz"],
         )
 
@@ -166,7 +166,7 @@ def app():
             )
 
             # after this calculate the charts and add them to the right panel
-            #ee.Reducer
+            # ee.Reducer
             empty_graph_text.write(delta_nbr.getInfo())
 
         main_map.to_streamlit(height=600)
