@@ -47,7 +47,7 @@ def app():
     with col2:  # right column
         data = st.file_uploader(
             "ROI olarak kullanmak için şekil dosyası ekleyin.",
-            type=["geojson", "kml", "zip", "kmz"],
+            type=["geojson", "kml", "kmz"],
         )
 
         selected_roi = st.selectbox(
