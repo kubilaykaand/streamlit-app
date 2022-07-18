@@ -78,10 +78,14 @@ def app():
         )
 
         if selected_rgb == "True Color":
-            st.session_state["vis_params"] = satellite_params.satellite[selected_satellite]["rgb_vis_params"]
+            st.session_state["vis_params"] = satellite_params.satellite[
+                selected_satellite
+            ]["rgb_vis_params"]
 
         elif selected_rgb == "False Color":
-            st.session_state["vis_params"] = satellite_params.satellite[selected_satellite]["false_color_vis_params"]
+            st.session_state["vis_params"] = satellite_params.satellite[
+                selected_satellite
+            ]["false_color_vis_params"]
 
         elif selected_rgb == "dNBR":
             st.session_state["vis_params"] = "dNBR"
@@ -120,25 +124,19 @@ def app():
                 roi = st.session_state.get("roi")
             out_gif = geemap.temp_file_path(".gif")
 
-            title = st.text_input(
-                "Timelapse'in başlığı: ", timelapse_title
-            )
+            title = st.text_input("Timelapse'in başlığı: ", timelapse_title)
 
             with st.expander("Timelaps'i özelleştirme:"):
 
                 speed = st.slider("Fps:", 1, 30, 5)
 
-                progress_bar_color = st.color_picker(
-                    "Bar rengi:", "#0000ff"
-                )
+                progress_bar_color = st.color_picker("Bar rengi:", "#0000ff")
 
                 font_size = st.slider("Font büyüklüğü:", 10, 50, 30)
 
                 font_color = st.color_picker("Font rengi:", "#ffffff")
 
-                apply_fmask = st.checkbox(
-                    "Bulut maskeleme uygulansın mı?", True
-                )
+                apply_fmask = st.checkbox("Bulut maskeleme uygulansın mı?", True)
 
                 font_type = st.selectbox(
                     "Başlık için font tipini seçin:",
@@ -155,12 +153,9 @@ def app():
             if submitted:
 
                 if selected_roi == "Uploaded GeoJSON" and data is None:
-                    empty_text.warning(
-                        "Öncelikle roi yükleyiniz."
-                    )
+                    empty_text.warning("Öncelikle roi yükleyiniz.")
 
                 else:
-
 
                     empty_text.text("Computing... Please wait...")
                     try:
@@ -190,7 +185,7 @@ def app():
                             )
 
                         elif st.session_state["satellite"] == "sentinel-2":
-                                out_gif = geemap.sentinel2_timelapse(
+                            out_gif = geemap.sentinel2_timelapse(
                                 roi=selected_roi,
                                 out_gif=out_gif,
                                 start_date=dates["prefire_start"],
@@ -212,14 +207,12 @@ def app():
                                 progress_bar_height=5,
                                 loop=0,
                                 mp4=mp4,
-                                )
+                            )
 
                         geemap.sentinel2_timelapse()
 
                     except:
-                        empty_text.error(
-                            "Bir hata meydana geldi."
-                        )
+                        empty_text.error("Bir hata meydana geldi.")
                         st.stop()
 
                     if out_gif is not None and os.path.exists(out_gif):
