@@ -35,6 +35,7 @@ def app():
     )
 
     st.session_state["vis_params"] = None
+    st.session_state["satellite"] = "sentinel-2"
     pre_fire = date.today() - 2 * DAY_WINDOW
     post_fire = date.today() - DAY_WINDOW
 
@@ -77,10 +78,10 @@ def app():
         )
 
         if selected_rgb == "True Color":
-            st.session_state["vis_params"] = satellite_params.satellite[st.session_state["satellite"]]["rgb_vis_params"]
+            st.session_state["vis_params"] = satellite_params.satellite[selected_satellite]["rgb_vis_params"]
 
         elif selected_rgb == "False Color":
-            st.session_state["vis_params"] = satellite_params.satellite[st.session_state["satellite"]]["false_color_vis_params"]
+            st.session_state["vis_params"] = satellite_params.satellite[selected_satellite]["false_color_vis_params"]
 
         elif selected_rgb == "dNBR":
             st.session_state["vis_params"] = "dNBR"
@@ -213,6 +214,8 @@ def app():
                                 mp4=mp4,
                                 )
 
+                        geemap.sentinel2_timelapse()
+
                     except:
                         empty_text.error(
                             "Bir hata meydana geldi."
@@ -238,3 +241,17 @@ def app():
                         empty_text.error(
                             "Something went wrong. You probably requested too much data. Try reducing the ROI or timespan."
                         )
+
+    with col1:  # left column
+        st.info(
+            "Adımlar: Harita üzerinde poligon çizin ➡ GeoJSON olarak export edin"
+            " ➡ Uygulamaya upload edin"
+            " ➡ Tarih aralığı seçin."
+        )
+
+        utils.map_search(main_map)
+
+        if st.session_state.get("roi"):
+            main_map.center_object(st.session_state["roi"])
+
+        main_map.to_streamlit(height=600)
