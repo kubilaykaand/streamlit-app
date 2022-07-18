@@ -22,8 +22,5 @@ stats= areaImage.reduceRegion({
     scale:30,
     maxPixels: 1e9
 })
-<<<<<<< HEAD
 print('pixels representing loss: ', stats.get('loss'),'square meters')
-=======
 print('pixels representing loss: ', stats.get('loss'),'square meters')
->>>>>>> 7a66d090d35d668aa7a4bdb1634d7c068a14bada
